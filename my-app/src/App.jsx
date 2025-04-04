@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import UserProvider from './Components/UserContext';
 import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import CharacterList from './Components/CharacterList';
@@ -10,19 +11,21 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
 
   return (
-    <Router>
-      <div>
-        <Navbar />
-
+    <UserProvider>
+      <Router>
         <div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/character-list" element={<CharacterList />} />
-          </Routes>
+          <Navbar />
+
+          <div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/character-list" element={<CharacterList />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </UserProvider>
     
   )
 }
