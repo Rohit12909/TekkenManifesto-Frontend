@@ -7,9 +7,13 @@ import './Character.css';
 export default function Character()
 {
     const { name } = useParams();
-    const { currentURL } = useUserContext();
+    const {currentURL} = useUserContext();
 
-    const [charInfo, setCharInfo] = useState([]);
+    const [charInfo, setCharInfo] = useState({});
+
+    const [newComboText, setNewComboText] = useState("");
+    const [newComboURL, setNewComboURL] = useState("");
+    const [newComboDamage, setNewComboDamage] = useState(0);
 
     useEffect(() => {
         const fetchChar = async () => {
@@ -19,14 +23,38 @@ export default function Character()
             } catch (err){
                 console.error("Error fetching character:", err);
             }
-        }
+        };
         fetchChar();
-    }, []);
+    }, [currentURL, name]);
+
+    const postNewCombo = async () => {
+        const newCombo = {
+            /* Create form to add new combo */
+            textNotation: newComboText,
+            visualNotationURL: newComboURL,
+            damage: newComboDamage
+        }
+        try {
+            const response = await axios.post(`${currentURL}/api/Combo/${name}`, newCombo);
+
+            if (response.status === 200)
+            {
+                setNewComboText("");
+                setNewComboURL("");
+                setNewComboDamage(0);
+            }
+        } catch (err) {
+            console.error("Error creating combo:", err);
+        }
+
+    }
 
 
     return (
         <div>
-            <header>{ charInfo.name }</header>
+            <header>
+                <h1>{ charInfo?.name }</h1>
+            </header>
 
             {/* Combos Table */}
             <table className="list-table">
@@ -38,7 +66,7 @@ export default function Character()
                     </tr>
                 </thead>
                 <tbody>
-                    {charInfo.combos.map((combo, index) => (
+                    {Array.isArray(charInfo.combos) && charInfo?.combos.map((combo, index) => (
                         <tr key={index} className="list-table-row">
                             <td>
                                 {combo.textNotation}
@@ -52,6 +80,7 @@ export default function Character()
                         </tr>
                     ))}
                 </tbody>
+                <button type="button" className="add-button" onClick={postNewCombo}>Add Combo</button>
             </table>
         </div>
     )
