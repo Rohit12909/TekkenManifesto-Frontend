@@ -43,7 +43,9 @@ function CharacterList()
                     {characters.map((character, index) => (
                         <tr key={index} className="char-row">
                             <td>
-                                {character.name}
+                                <Link to={`/character/${character?.name}`}>
+                                    {character.name}
+                                </Link>
                             </td>
                             <td>
                                 {character.origin}

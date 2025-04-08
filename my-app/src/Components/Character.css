@@ -1,0 +1,42 @@
+/* Table Styling */
+.list-table {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.5);
+    background: #2c2c2c;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.list-table thead {
+    background-color: #5eb8ed;
+    color: #1e1e1e;
+    text-align: center;
+}
+
+.list-table th,
+.list-table td {
+    padding: 1rem;
+    text-align: center;
+}
+
+.list-table tbody {
+    background-color: #c7794b;
+}
+
+.list-table tr {
+    transition: background-color 0.5s ease;
+}
+
+.list-table tr:hover {
+    background-color: #424242;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .list-table {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+}
