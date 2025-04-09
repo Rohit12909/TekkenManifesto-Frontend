@@ -12,7 +12,7 @@ function CharacterList()
     useEffect(() => {
         const fetchCharacters = async () => {
             try {
-                const response = await axios.get(`${currentURL}/api/Char`);
+                const response = await axios.get(`${currentURL}/Char`);
                 setCharacters(response.data);
             } catch (error) {
                 console.error("Error fetching characters:", error);

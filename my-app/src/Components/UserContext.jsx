@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect  } from "react";
 import axios from 'axios';
 
 const UserContext = createContext();
-const baseURL = "http://localhost:5260";
+const baseURL = "http://localhost:5260/api";
 
 export const useUserContext = () => useContext(UserContext);
 
