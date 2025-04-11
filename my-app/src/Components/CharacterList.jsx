@@ -13,6 +13,7 @@ function CharacterList()
         const fetchCharacters = async () => {
             try {
                 const response = await axios.get(`${currentURL}/Char`);
+                console.log("CHARACTER:", response.data);
                 setCharacters(response.data);
             } catch (error) {
                 console.error("Error fetching characters:", error);
@@ -35,7 +36,7 @@ function CharacterList()
                         <th>Origin</th>
                         <th>Fighting Style</th>
                         <th>Highest Rank Achieved</th>
-                        <th>Played</th>
+                        <th>Played (Ranked)</th>
 
                     </tr>
                 </thead>
@@ -47,18 +48,10 @@ function CharacterList()
                                     {character.name}
                                 </Link>
                             </td>
-                            <td>
-                                {character.origin}
-                            </td>
-                            <td>
-                                {character.fightingStyle}
-                            </td>
-                            <td>
-                                {character.highestRank}
-                            </td>
-                            <td>
-                                {character.played}
-                            </td>
+                            <td>{character.origin}</td>
+                            <td>{character.fightingStyle}</td>
+                            <td>{character.highestRank}</td>
+                            <td>{character.played ? "Yes" : "No"}</td>
                         </tr>
                     ))}
                 </tbody>
