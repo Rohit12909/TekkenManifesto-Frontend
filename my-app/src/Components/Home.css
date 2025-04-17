@@ -4,16 +4,18 @@
     gap: 16px;
     padding: 16px;
     box-sizing: border-box;
-    justify-items: center;
+    align-items: stretch;
+    justify-items: stretch;
 }
 
 .card {
     width: 100%; /* Grid will manage width */
-    max-width: 300px;
-    margin: 0 auto;
+    max-width: 100%;
     aspect-ratio: 1 / 1; /* Keep it square */
     perspective: 1000px;
     position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .content {
@@ -30,34 +32,49 @@
 
 .front, .back {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
     border-radius: 5px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    font-size: 1.5rem;
-    padding: 16px;
-    box-sizing: border-box;
-    text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
 .front {
     background: white;
-    color: #03446A;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    text-align: center;
-    padding: 16px;
-    box-sizing: border-box;
 }
 
 .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;       /* ← ensures no extra width */
+    height: 100%;      /* ← matches .card */
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    overflow: hidden;  /* clip anything that spills */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     background: #03446A;
     color: white;
-    transform: rotateY(180deg);
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+.back > div {
+    overflow-y: auto;
+    max-height: 100%;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 .char-card-image {
@@ -65,10 +82,65 @@
     max-height: 100%;
     object-fit: cover;
     border-radius: 5px;
-    margin-bottom: 8px;
 }
 
 .char-name {
-    font-size: 1.2rem;
+    height: 20%;  /* Remaining space */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
     font-weight: bold;
+    text-align: center;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.image-wrapper {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-card {
+    border: 2px dashed #ccc;
+    background: #f9f9f9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    padding: 16px;
+    box-sizing: border-box;
+  
+    /* Slight safety margin to prevent grid clipping */
+    margin-right: 0.5px;
+    margin-bottom: 0.5px;
+  }
+  
+
+.add-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: #f0f0f0;
+    border: 2px dashed #aaa;
+    transition: background 0.3s ease;
+}
+
+.add-front:hover {
+    background: #e0e0e0;
+}
+
+.plus-icon {
+    font-size: 3rem;
+    color: #777;
+    margin-bottom: 8px;
 }

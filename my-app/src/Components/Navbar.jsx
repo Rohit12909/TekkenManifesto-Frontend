@@ -7,7 +7,6 @@ function Navbar()
     return(
         <nav className="navbar">
             <Link to="/home" className="nav-link"> Home</Link>
-            <Link to="/character-list" className="nav-link"> Character List</Link>
         </nav>
     )
 }
