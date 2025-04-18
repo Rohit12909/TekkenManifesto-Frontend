@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useUserContext  } from './UserContext';
 import './Home.css';
+import AddCharacterModal from './AddCharacterModal';
 
 function Home()
 {
@@ -10,6 +11,7 @@ function Home()
     const [characters, setCharacters] = useState([]);
     const [imageSizes, setImageSizes] = useState({});
     const imageRefs = useRef({});
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchCharacters = async () => {
@@ -35,6 +37,13 @@ function Home()
                 }
             }));
         }
+    }
+
+    const handleAddCharacter = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+
+    const handleCharacterAdded = (newChar) => {
+        setCharacters(prev => [...prev, newChar]);
     }
 
     {/* DISPLAY CURRENT LIST OF CHARACTERS AS CARDS,
@@ -69,16 +78,27 @@ function Home()
                 </Link>
                 ))}
 
-                <Link to="" className="card add-card">
+                <div className="card add-card" onClick={handleAddCharacter}>
                     <div className="content">
                         <div className="front add-front">
                             <div className="plus-icon">+</div>
                             <div className="char-name">Add Character</div>
                         </div>
-                        <div className="back"></div>
+                        <div className="back add-back">
+                            <div className="plus-icon">+</div>
+                            <div className="char-name">Add Character</div>
+                        </div>
                     </div>
-                </Link>
+                </div>
             </div>
+
+            {showModal && (
+                <AddCharacterModal 
+                    onClose={handleCloseModal}
+                    onCharacterAdded={handleCharacterAdded}
+                    currentURL={currentURL}
+                />
+            )}
         </div>
     )
 }
